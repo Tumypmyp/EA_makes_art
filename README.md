@@ -46,10 +46,10 @@ There are examples of how EA changed given pictures using only points for Color 
 </p>
 
 <p float="left">
-  <img src="/AI_images/image04.gif" width="130" />
-  <img src="/AI_images/image13.gif" width="130" /> 
-  <img src="/AI_images/image14.gif" width="130" />
-  <img src="/AI_images/image16.gif" width="130" />
+  <img src="/AI_images/image04_result.png" width="130" />
+  <img src="/AI_images/image13_result.png" width="130" /> 
+  <img src="/AI_images/image14_result.png" width="130" />
+  <img src="/AI_images/image16_result.png" width="130" />
 </p>
 
 
