@@ -1,6 +1,6 @@
 # Report for Introduction to Artificial Intelligence Assignment 2
 ##### Prepared by Gainullin Timur
-
+##### [github link](https://github.com/Tumypmyp/IAI_assignment2)
 
 For this project firstly I needed to research for the answer to "What is an art and non-art?" question. 
 As I know there is no legitimate criteria was found. Therefore I had to choose from different theories. 
@@ -88,9 +88,11 @@ Pop size | Gen num | Avg survived | Time | Score
 130|60|70|10|982
 130|106|70|20|995
 
-
+In the GitHub repository, you can see the output folder where images sorted by points the program gave them. 
+As additional information, the most suitable colour palette is written with image points too.
 
 used matirials:
+
 [about complimentary colors](https://serennu.com/colour/rgbtohsl.php)
 
 [Java Class helping convert from RGB to HSL and backwards](https://tips4java.wordpress.com/2009/07/05/hsl-color/)
