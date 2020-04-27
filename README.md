@@ -52,25 +52,16 @@ There are examples of how EA changed given pictures using only points for Color 
   <img src="/AI_images/image16_result.png" width="130" />
 </p>
 
+In order to choose the best constants for EA which are:  
+ - Population size
+ - Number of generations
+ - Mutation Rate
+ - Mutation percentage on population
+ - Crossover percentage on population
+I tested different ones and filled following table. 
 
-Pop size | Gen num | Avg survived| Time| Score
+Pop size | Gen num | Avg survived | Time | Score
 ---|---|---|---|---
-||||
-300|20|200|5|314
-300|39|200|10|323
-300|121|200|30|340
-300|222|200|60|345
-300|327|200|90|348
-||||
-300|12|150|5|315
-300|25|150|10|324
-300|40|200|30|338
-||||
-30|83|15|3|317
-30|146|15|5|321
-30|276|15|10|328    
-||||
-||||
 30|249|15|10|963
 ||||
 100|100|50|10|996
@@ -99,15 +90,11 @@ Pop size | Gen num | Avg survived| Time| Score
 
 
 
-
-
 used matirials:
 [about complimentary colors](https://serennu.com/colour/rgbtohsl.php)
 
-[the code probably used for RGB to HSL](http://biginteger.blogspot.com/2012/01/convert-rgb-to-hsl-and-vice-versa-in.html)
+[Java Class helping convert from RGB to HSL and backwards](https://tips4java.wordpress.com/2009/07/05/hsl-color/)
 
-[or this](https://tips4java.wordpress.com/2009/07/05/hsl-color/)
-
-[philosophical question art and non-art](https://medium.com/@christopherwillardauthor/distinguishing-art-from-non-art-discussion-2-part-1-fec2feaa36b4)
+[main philosophical writing about art and non-art](https://medium.com/@christopherwillardauthor/distinguishing-art-from-non-art-discussion-2-part-1-fec2feaa36b4)
 
 [color wheel theory](https://www.canva.com/colors/color-wheel/)
