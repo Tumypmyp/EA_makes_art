@@ -29,17 +29,29 @@ There are examples of how EA changed given pictures using only points for Color 
 [example1]: https://github.com/Tumypmyp/IAI_assignment2/blob/master/AI_images/color_theory_only/example1.png "Example 1"
 [example2]: https://github.com/Tumypmyp/IAI_assignment2/blob/master/AI_images/color_theory_only/example2.png "Example 2"
 
-![alt-text-1](example1) 
-![alt-text-2](example2)
-
 
 <p float="left">
-  <img src="/AI_images/color_theory_only/example1.png" width="100" />
-  <img src="/AI_images/color_theory_only/example2.png" width="100" /> 
-  <img src="/AI_images/color_theory_only/example3.png" width="100" />
-  <img src="/AI_images/color_theory_only/example4.png" width="100" />
-  <img src="/AI_images/color_theory_only/example5.png" width="100" />
+  <img src="/AI_images/color_theory_only/example1.png" width="130" />
+  <img src="/AI_images/color_theory_only/example2.png" width="130" /> 
+  <img src="/AI_images/color_theory_only/example3.png" width="130" />
+  <img src="/AI_images/color_theory_only/example4.png" width="130" />
+  <img src="/AI_images/color_theory_only/example5.png" width="130" />
 </p>
+
+<p float="left">
+  <img src="/input/image04.png" width="130" />
+  <img src="/input/image13.png" width="130" />
+  <img src="/input/image14.png" width="130" />
+  <img src="/input/image16.png" width="130" />
+</p>
+
+<p float="left">
+  <img src="/AI_images/image04.gif" width="130" />
+  <img src="/AI_images/image13.gif" width="130" /> 
+  <img src="/AI_images/image14.gif" width="130" />
+  <img src="/AI_images/image16.gif" width="130" />
+</p>
+
 
 Pop size | Gen num | Avg survived| Time| Score
 ---|---|---|---|---
