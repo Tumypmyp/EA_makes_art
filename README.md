@@ -38,6 +38,9 @@ There are examples of how EA changed given pictures using only points for Color 
   <img src="/AI_images/color_theory_only/example5.png" width="130" />
 </p>
 
+In the GitHub repository, you can see the output folder where images sorted by points the program gave them. 
+As additional information, the most suitable colour palette is written with image points too.
+
 <p float="left">
   <img src="/input/image04.png" width="130" />
   <img src="/input/image13.png" width="130" />
@@ -88,8 +91,8 @@ Pop size | Gen num | Avg survived | Time | Score
 130|60|70|10|982
 130|106|70|20|995
 
-In the GitHub repository, you can see the output folder where images sorted by points the program gave them. 
-As additional information, the most suitable colour palette is written with image points too.
+I think my program did make art. In Formalists way of view, it is not perfect but can be estimated as one.
+
 
 used matirials:
 
