@@ -25,12 +25,19 @@ But this checking composition in the image didn't work well, so I don't use it.
 
 
 There are examples of how EA changed given pictures using only points for Color Theory:
-![alt-text-1](example1) ![alt-text-2](example2)
+
 [example1]: https://github.com/Tumypmyp/IAI_assignment2/blob/master/AI_images/color_theory_only/example1.png "Example 1"
 [example1]: https://github.com/Tumypmyp/IAI_assignment2/blob/master/AI_images/color_theory_only/example2.png "Example 2"
+
+![alt-text-1](example1) ![alt-text-2](example2)
+
 [//]: # <img src="AI_images/color_theory_only/example1.png">
 
-
+<p float="left">
+  <img src="/AI_images/color_theory_only/example1.png" width="100" />
+  <img src="/AI_images/color_theory_only/example2.png" width="100" /> 
+  <img src="/AI_images/color_theory_only/example3.png" width="100" />
+</p>
 
 Pop size | Gen num | Avg survived| Time| Score
 ---|---|---|---|---
