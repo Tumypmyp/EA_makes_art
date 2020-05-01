@@ -55,6 +55,15 @@ As additional information, the most suitable colour palette is written with imag
   <img src="/AI_images/image16_result.png" width="130" />
 </p>
 
+There is contest image that I remembered to send to late
+
+<p float="left">
+  <img src="/AI_images/contest_image.png" width="130" />
+</p>
+
+
+
+
 In order to choose the best constants for EA which are:  
  - Population size
  - Number of generations
