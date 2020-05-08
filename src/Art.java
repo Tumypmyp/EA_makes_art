@@ -1,8 +1,6 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 import java.util.Random;
-import java.util.function.BinaryOperator;
 import java.util.function.Function;
 
 
@@ -16,29 +14,25 @@ public class Art implements Comparable<Art>, Cloneable {
     public static final int WHEEL_N = 360;
     public static final int COLOR_N = 12;
     // Analogous, Complementary, Split Complementary, Triadic, Tetradic
-    public static final String[] COLOR_PALETTES_NAME = new String[]{"Analogous", "Complementary", "Split Complementary", "Triadic", "Tetradic"};
-    public static final int[][] COLOR_PALETTES = new int[][]{{0, 1, 2}, {0, 6}, {0, 5, 7}, {0, 4, 8}, {0, 3, 6, 9}};
+    public static final String[] COLOR_PALETTES_NAME = new String[]{"Analogous", "Complementary", "Split Complementary", "Triadic"};//, "Tetradic"};
+    public static final int[][] COLOR_PALETTES = new int[][]{{0, 1, 2}, {0, 6}, {0, 5, 7}, {0, 4, 8}};//, {0, 3, 6, 9}};
     public static final double MAX_SUM_DIFF = 512 * 511 * (360 + 100 + 100) * 2;
 
     public static final int[] HSL_MAX = new int[]{360, 100, 100};
     public static final int R = 16;
-    public static final int DAP_W = W / (R * 2) + 1;
-    public static final int DAP_H = DAP_W;
 
     private static Random random;
     private static int ref[];
 
     private int[] data;
-    private int[][][] dap;
     private Pair[] hueSpots;
     private Pair[] saturationSpots;
     private Pair[] luminanceSpots;
-    private Pair[] contrastSpots = null;
     private float[] colors;
     private float sumColors;
     private double[] sumDiff = new double[]{0, 0, 0};
-    private float[] colorCombination;
-    private double similarity;
+    private float[] colorCombination = new float[]{0, 0};
+    private long similarity;
 
 
     public static void setReference(int[] x) {
@@ -58,31 +52,22 @@ public class Art implements Comparable<Art>, Cloneable {
     }
 
     Art() {
-        dap = new int[2][DAP_W][DAP_H];
-        for (int i = 0; i < 2; ++i)
-            for (int x = 0; x < DAP_W; ++x)
-                for (int y = 0; y < DAP_H; ++y)
-                    dap[i][x][y] = new Color(random.nextFloat(), random.nextFloat(), random.nextFloat()).hashCode();
         data = new int[W * H];
+        for (int i = 0; i < W * H; ++i)
+            data[i] = Color.WHITE.hashCode();
+        similarity = getTotalSimilarity();
         refresh();
     }
 
 
     Art(Art art) {
-        dap = new int[2][DAP_W][DAP_H];
-        for (int i = 0; i < 2; ++i)
-            for (int x = 0; x < DAP_W; ++x)
-                for (int y = 0; y < DAP_H; ++y)
-                    dap[i][x][y] = art.dap[i][x][y];
         data = new int[W * H];
         for (int i = 0; i < data.length; ++i)
             data[i] = art.data[i];
-
         colorCombination = new float[]{art.colorCombination[0], art.colorCombination[1]};
         sumDiff = new double[3];
         for (int i = 0; i < 3; ++i)
             sumDiff[i] = art.sumDiff[i];
-
         similarity = art.similarity;
     }
 
@@ -91,21 +76,25 @@ public class Art implements Comparable<Art>, Cloneable {
 //        saturationSpots = findBrightestSpots(SPOT_K, SPOT_W, SPOT_H, this::saturation);
 //        luminanceSpots = findBrightestSpots(SPOT_K, SPOT_W, SPOT_H, this::luminance);
 //        contrastSpots = findContrastSpots(SPOT_K, SPOT_W, SPOT_H, SPOT_P);
-        colors = countColors();
-        colorCombination = findBestColorCombination(COLOR_N);
-        sumDiff = countSumDiff();
-        for (int i = 0; i < 2; ++i)
-            for (int x = 0; x < DAP_W; ++x)
-                for (int y = 0; y < DAP_H; ++y)
-                    paint(i * R + x * R * 2, i * R + y * R * 2, dap[i][x][y]);
-        similarity = getSimilarity();
+//        colors = countColors();
+//        colorCombination = findBestColorCombination(COLOR_N);
+//        sumDiff = countSumDiff();
+//        for (int i = 0; i < 2; ++i)
+//            for (int x = 0; x < DAP_W; ++x)
+//                for (int y = 0; y < DAP_H; ++y)
+//                    paint(i * R + x * R * 2, i * R + y * R * 2, dap[i][x][y]);
+//        similarity = getTotalSimilarity();
     }
 
-    private void paint(int x, int y, int col) {
-        for (int i = Math.max(0, x - R); i <= Math.min(W - 1, x + R); ++i)
-            for (int j = Math.max(0, y - R); j <= Math.min(H - 1, y + R); ++j)
-                if (dist(i, j, x, y) * 2 < (R + 1) * (R + 1))
-                    data[i + j * W] = col;
+    private void paint(int x, int y, int r, int col) {
+        for (int i = Math.max(0, x - r); i <= Math.min(W - 1, x + r); ++i)
+            for (int j = Math.max(0, y - r); j <= Math.min(H - 1, y + r); ++j) {
+                long sim0 = getSimilarity(i, j);
+//                if (dist(i, j, x, y) * 2 < (r + 1) * (r + 1))
+                data[i + j * W] = col;
+                long sim1 = getSimilarity(i, j);
+                similarity = similarity - sim0 + sim1;
+            }
     }
 
 
@@ -114,42 +103,40 @@ public class Art implements Comparable<Art>, Cloneable {
     }
 
     public void mutate() {
-        int i = random.nextInt(4) > 0 ? 1 : 0;
-        int x = random.nextInt(DAP_W);
-        int y = random.nextInt(DAP_H);
-        float[] hsl = HSLColor.fromRGB(new Color(dap[i][x][y]));
-        for (int j = 0; j < 3; ++j) {
-            hsl[i] += (float) (random.nextGaussian() * HSL_MAX[i]);
-            if (i == 0) {
-                hsl[i] %= HSL_MAX[i];
-                hsl[i] += HSL_MAX[i];
-                hsl[i] %= HSL_MAX[i];
-            } else {
-                hsl[i] = Math.max(0, hsl[i]);
-                hsl[i] = Math.min(HSL_MAX[i], hsl[i]);
-            }
-        }
-        dap[i][x][y] = HSLColor.toRGB(hsl).hashCode();
-        refresh();
-    }
+//        int i = random.nextInt(4) > 0 ? 1 : 0;
+        int x = random.nextInt(W);
+        int y = random.nextInt(H);
+        int r = random.nextInt(9) + 2;
+        float[] hsl = HSLColor.fromRGB(new Color(data[x + y * W]));
+        hsl[2] = (float) (random.nextGaussian() * HSL_MAX[2] / 2);
 
-    public static Art crossover(Art art1, Art art2) {
-        Art[] arts = new Art[]{art1, art2};
-        Art res = new Art();
-        int id = 0;
-        for (int i = 0; i < 2; ++i)
-            for (int x = 0; x < DAP_W; ++x)
-                for (int y = 0; y < DAP_H; ++y) {
-                    res.dap[i][x][y] = arts[id].dap[i][x][y];
-                    id ^= random.nextBoolean() ? 1 : 0;
-                }
-        res.refresh();
-        return res;
+        hsl[2] %= HSL_MAX[2];
+        hsl[2] += HSL_MAX[2];
+        hsl[2] %= HSL_MAX[2];
+//        if (hsl[2] < 90) {
+//            hsl[1] = random.nextFloat() * hsl[2];
+//            hsl[0] += (random.nextFloat() - 0.5) * 10;
+//            hsl[0] += HSL_MAX[0];
+//            hsl[0] %= HSL_MAX[0];
+//
+//        }
+//        for (int i = 2; i < 3; ++i) {
+//            if (i == 0) {
+//                hsl[i] %= HSL_MAX[i];
+//                hsl[i] += HSL_MAX[i];
+//                hsl[i] %= HSL_MAX[i];
+//            } else {
+//                hsl[i] = Math.max(0, hsl[i]);
+//                hsl[i] = Math.min(HSL_MAX[i], hsl[i]);
+//            }
+//        }
+        paint(x, y, r, HSLColor.toRGB(hsl).hashCode());
+        refresh();
     }
 
     private double[] countSumDiff() {
         double[] result = new double[3];
-        for (int i = 0; i < 3; ++i) {
+        for (int i = 0; i < 2; ++i) {
             for (int x = 0; x < W; ++x)
                 for (int y = 0; y < H; ++y) {
                     for (int[] step : NEIGHBOR) {
@@ -157,11 +144,8 @@ public class Art implements Comparable<Art>, Cloneable {
                             continue;
                         float[] c1 = HSLColor.fromRGB(new Color(data[x + y * W]));
                         float[] c2 = HSLColor.fromRGB(new Color(data[x + step[0] + (y + step[1]) * W]));
-                        float p = (float) (i == 0 ? WHEEL_N : 100) / 12;
                         float add = Math.min(Math.abs(c1[i] - c2[i]), Math.abs(c1[i] + (i == 0 ? WHEEL_N : 0) - c2[i]));
-                        add = add * 100 / HSL_MAX[i];
-                        add = 100 - add;
-                        result[i] += add; // < p ? 0 : Math.pow(add, 1.5);
+                        result[i] -= Math.abs(c1[2] - c2[2]) < 10 ? add : 0; // < p ? 0 : Math.pow(add, 1.5);
                     }
                 }
         }
@@ -172,29 +156,36 @@ public class Art implements Comparable<Art>, Cloneable {
         return colorCombination;
     }
 
-    private double getSimilarity() {
-        double[] result = new double[3];
+    private long getTotalSimilarity() {
+        long result = 0;
         for (int x = 0; x < W; ++x)
-            for (int y = 0; y < H; ++y) {
-                float[] c1 = HSLColor.fromRGB(new Color(data[x + y * W]));
-                float[] c2 = HSLColor.fromRGB(new Color(ref[x + y * W]));
-                for (int i = 0; i < 3; ++i) {
-                    double add = Math.min(Math.abs(c1[i] - c2[i]), Math.abs(c1[i] + HSL_MAX[i] - c2[i]));
-                    add = add * 100 / HSL_MAX[i];
-                    add = Math.pow(100 - add, 1);
-                    result[i] += add;
-                }
-            }
-        return (result[0] + result[1] + result[2]);
+            for (int y = 0; y < H; ++y)
+                result += getSimilarity(x, y);
+        return result;
     }
+
+    private long getSimilarity(int x, int y) {
+        double[] result = new double[3];
+        float[] c1 = HSLColor.fromRGB(new Color(data[x + y * W]));
+        float[] c2 = HSLColor.fromRGB(new Color(ref[x + y * W]));
+        for (int i = 1; i < 3; ++i) {
+//          double add = Math.min(Math.abs(c1[i] - c2[i]), Math.abs(c1[i] + HSL_MAX[i] - c2[i]));
+            double add = Math.abs(c1[i] - c2[i]);
+            add = add * 100 / HSL_MAX[i];
+            add = Math.pow(100 - add, 1);
+            result[i] += add;
+        }
+        return (long) (result[0] + result[1] + result[2]);
+
+    }
+
 
     public double getValue() {
 //        System.out.println(String.format("%.2f %.2f %.2f %.2f", getColorCombination()[0], sumDiff[0], sumDiff[1], sumDiff[2]));
-        double res1 = Math.max(0, getColorCombination()[0]) * 100;
-        double res2 = Math.max(0, (sumDiff[0] + sumDiff[1] + sumDiff[2]) / 100); // MAX_SUM_DIFF);
+        double res1 = Math.max(0, colorCombination[0]) * 100;
+        double res2 = (sumDiff[0] + sumDiff[1] + sumDiff[2]) / 100; // MAX_SUM_DIFF);
         double res3 = similarity;
-        System.out.println(String.format("%f %f %f", res1, res2, res3));
-
+//        System.out.println(String.format("%f %f %f", res1, res2, res3));
         return (int) (res1 + res2 + res3);
     }
 
@@ -215,7 +206,7 @@ public class Art implements Comparable<Art>, Cloneable {
                 }
             }
         }
-        return new float[]{ans * 1000, ans_i};
+        return new float[]{ans * 10000, ans_i};
     }
 
     private float[] countColors() {

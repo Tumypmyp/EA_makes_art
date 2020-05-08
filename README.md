@@ -61,7 +61,12 @@ There is contest image that I remembered to send to late
   <img src="/AI_images/contest_image.png" width="130" />
 </p>
 
+After some optimizations works much faster there are the results
 
+<p float="left">
+  <gif src="/AI_images/image01.gif" width="130" />
+  <img src="/AI_images/image01.png" width="130" /> 
+</p>
 
 
 In order to choose the best constants for EA which are:  

@@ -10,8 +10,8 @@ import java.util.Random;
 
 public class Main {
 
-    public static final int POPULATION_SIZE = 100;
-    public static final int GENERATION_NUMBER = 10000;
+    public static final int POPULATION_SIZE = 50;
+    public static final int GENERATION_NUMBER = 50000;
 
     public static void main(String[] args) {
         long startProgram = System.currentTimeMillis();
@@ -49,7 +49,7 @@ public class Main {
 //        Reading reference picture
         BufferedImage img = null;
         try {
-            File input = new File("AI_input" + File.separator + imageName + ".png");
+            File input = new File("input" + File.separator + imageName + ".png");
             System.out.println("Reading from " + input.getAbsolutePath());
             img = ImageIO.read(input);
         } catch (IOException e) {
@@ -71,6 +71,7 @@ public class Main {
         long startTime = System.currentTimeMillis();
         long sumSurvived = 0;
         double maxScore = 0;
+        int outputNum = 0;
         for (int i = 1; i <= GENERATION_NUMBER; ++i) {
 
 //            Create new population
@@ -79,7 +80,7 @@ public class Main {
 
 //            Choose who survived
             for (int j = 0; j < population.length; ++j) {
-                if (j <= random.nextInt(POPULATION_SIZE ) * 1.15) {
+                if (j <= random.nextInt(POPULATION_SIZE) * 0.8) {
                     newPopulation[k++] = population[j];
                 }
             }
@@ -89,20 +90,14 @@ public class Main {
             System.out.println(String.format("\n\nPhase: %d\nAvg survived: %d", i, sumSurvived / i));
 
             while (k < POPULATION_SIZE) {
-//                Choose crossover or mutation
-                int i1 = (int)Math.abs(random.nextGaussian() * POPULATION_SIZE % POPULATION_SIZE); // random.nextInt(population.length);
-                if (random.nextInt(3) == 0) {
-//                    Crossover
-                    int i2 = random.nextInt(i1 + 1);
-                    newPopulation[k++] = Art.crossover(population[i1], population[i2]);
-                } else {
-//                    Multiple mutations
-                    int p =  random.nextInt(15) + 1;//(int) Math.max(1, random.nextGaussian() * 3 + 3);; ;
-                    newPopulation[k] = new Art(population[i1]);
-                    for (int j = 0; j < p; ++j)
-                        newPopulation[k].mutate();
-                    k++;
-                }
+
+//                 Not Multiple mutations
+                int i1 = (int) Math.abs(random.nextGaussian() * POPULATION_SIZE % POPULATION_SIZE); // random.nextInt(population.length);
+                int p = 1; // random.nextInt(7) + 1;//(int) Math.max(1, random.nextGaussian() * 3 + 3);; ;
+                newPopulation[k] = new Art(population[i1]);
+                for (int j = 0; j < p; ++j)
+                    newPopulation[k].mutate();
+                k++;
             }
 
 //            Swapping to new generation
@@ -115,11 +110,10 @@ public class Main {
                 new File(folderName).mkdir();
             }
 
-
 //            Debug output
-            if (maxScore < population[0].getValue())
+            if (maxScore < population[0].getValue() && outputNum++ % 10 == 0)
 
-                for (int j = 0; (j == 0) && j < population.length; ++j)
+                for (int j = 0; j == 0 && j < population.length; ++j)
                     try {
                         maxScore = population[j].getValue();
                         String name = String.format("%09d_points_image%02d.png", (int) population[j].getValue(), j);
