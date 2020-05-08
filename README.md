@@ -58,17 +58,22 @@ As additional information, the most suitable colour palette is written with imag
 There is contest image that I remembered to send to late
 
 <p float="left">
-  <img src="/AI_images/contest_image.png" width="130" />
+  <img src="/AI_images/contest_image.png" width="200" />
 </p>
 
 After some optimizations works much faster, there are the results:
 
 <p float="left">
-  <gif src="/AI_images/image01.gif" width="200" />
-  <img src="/AI_images/image01.png" width="200" />
-  <gif src="/AI_images/clown.gif" width="200" />
-  <img src="/AI_images/clown.png" width="200" /> 
+  <img src="/AI_images/image01.gif" width="200" />
+  <img src="/AI_images/clown.gif" width="200" />
 </p>
+<!-- 
+<p float="left">
+  <img src="/AI_images/image01.gif" width="200" />
+  <img src="/AI_images/image01.png" width="200" />
+  <img src="/AI_images/clown.gif" width="200" />
+  <img src="/AI_images/clown.png" width="200" /> 
+</p> -->
 
 
 In order to choose the best constants for EA which are:  
