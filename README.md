@@ -61,11 +61,13 @@ There is contest image that I remembered to send to late
   <img src="/AI_images/contest_image.png" width="130" />
 </p>
 
-After some optimizations works much faster there are the results
+After some optimizations works much faster, there are the results:
 
 <p float="left">
-  <gif src="/AI_images/image01.gif" width="130" />
-  <img src="/AI_images/image01.png" width="130" /> 
+  <gif src="/AI_images/image01.gif" width="200" />
+  <img src="/AI_images/image01.png" width="200" />
+  <gif src="/AI_images/clown.gif" width="200" />
+  <img src="/AI_images/clown.png" width="200" /> 
 </p>
 
 
