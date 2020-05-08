@@ -67,6 +67,12 @@ After some optimizations works much faster, there are the results:
   <img src="/AI_images/image01.gif" width="200" />
   <img src="/AI_images/clown.gif" width="200" />
 </p>
+
+<p float="left">
+  <img src="/AI_images/image01.png" width="200" />
+  <img src="/AI_images/clown.png" width="200" /> 
+</p>
+
 <!-- 
 <p float="left">
   <img src="/AI_images/image01.gif" width="200" />
