@@ -2,6 +2,12 @@
 ##### Prepared by Gainullin Timur
 ##### [github link](https://github.com/Tumypmyp/IAI_assignment2)
 
+To use download or clone this repository and execute:
+```
+java -jar IAI.jar
+```
+
+
 For this project firstly I needed to research for the answer to "What is an art and non-art?" question. 
 As I know there is no legitimate criteria was found. Therefore I had to choose from different theories. 
 There are Expressionists, Emotionalists, Formalists, Organicists, Intuitionists, Voluntarists, etc. 
@@ -25,10 +31,6 @@ But this checking composition in the image didn't work well, so I don't use it.
 
 
 There are examples of how EA changed given pictures using only points for Color Theory:
-
-[example1]: https://github.com/Tumypmyp/IAI_assignment2/blob/master/AI_images/color_theory_only/example1.png "Example 1"
-[example2]: https://github.com/Tumypmyp/IAI_assignment2/blob/master/AI_images/color_theory_only/example2.png "Example 2"
-
 
 <p float="left">
   <img src="/AI_images/color_theory_only/example1.png" width="130" />
@@ -116,10 +118,10 @@ I think my program did make art. In Formalists way of view, it is not perfect bu
 
 used matirials:
 
-[about complimentary colors](https://serennu.com/colour/rgbtohsl.php)
+[Complimentary colors](https://serennu.com/colour/rgbtohsl.php)
 
 [Java Class helping convert from RGB to HSL and backwards](https://tips4java.wordpress.com/2009/07/05/hsl-color/)
 
-[main philosophical writing about art and non-art](https://medium.com/@christopherwillardauthor/distinguishing-art-from-non-art-discussion-2-part-1-fec2feaa36b4)
+[philosophical writing about art and non-art](https://medium.com/@christopherwillardauthor/distinguishing-art-from-non-art-discussion-2-part-1-fec2feaa36b4)
 
 [color wheel theory](https://www.canva.com/colors/color-wheel/)
