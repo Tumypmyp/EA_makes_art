@@ -108,18 +108,16 @@ public class Art implements Comparable<Art>, Cloneable {
         int y = random.nextInt(H);
         int r = random.nextInt(9) + 2;
         float[] hsl = HSLColor.fromRGB(new Color(data[x + y * W]));
-        hsl[2] = (float) (random.nextGaussian() * HSL_MAX[2] / 2);
+        hsl[2] += (((random.nextGaussian() - 0.5) * HSL_MAX[2]));
+        hsl[2] = Math.max(Math.min(hsl[2], HSL_MAX[2]), 0);
+        hsl[1] += (((random.nextGaussian() - 0.5) * HSL_MAX[1]));
+        hsl[1] = Math.max(Math.min(hsl[1], HSL_MAX[1]), 0);
 
-        hsl[2] %= HSL_MAX[2];
-        hsl[2] += HSL_MAX[2];
-        hsl[2] %= HSL_MAX[2];
-//        if (hsl[2] < 90) {
-//            hsl[1] = random.nextFloat() * hsl[2];
-//            hsl[0] += (random.nextFloat() - 0.5) * 10;
-//            hsl[0] += HSL_MAX[0];
-//            hsl[0] %= HSL_MAX[0];
-//
-//        }
+        hsl[0] += (((random.nextGaussian() - 0.5) * HSL_MAX[0]));
+        hsl[0] %= HSL_MAX[0];
+        hsl[0] += HSL_MAX[0];
+        hsl[0] %= HSL_MAX[0];
+
 //        for (int i = 2; i < 3; ++i) {
 //            if (i == 0) {
 //                hsl[i] %= HSL_MAX[i];
@@ -171,10 +169,10 @@ public class Art implements Comparable<Art>, Cloneable {
         for (int i = 1; i < 3; ++i) {
 //          double add = Math.min(Math.abs(c1[i] - c2[i]), Math.abs(c1[i] + HSL_MAX[i] - c2[i]));
             double add = Math.abs(c1[i] - c2[i]);
-            add = add * 100 / HSL_MAX[i];
-            add = Math.pow(100 - add, 1);
+            add = 100 - add * 100 / HSL_MAX[i];
             result[i] += add;
         }
+        result[0] += 100 - Math.min(Math.abs(c1[0] - c2[0]), Math.abs(c1[0] + HSL_MAX[0] - c2[0])) * 100 / HSL_MAX[0];
         return (long) (result[0] + result[1] + result[2]);
 
     }

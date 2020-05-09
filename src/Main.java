@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Main {
 
-    public static final int POPULATION_SIZE = 50;
+    public static final int POPULATION_SIZE = 100;
     public static final int GENERATION_NUMBER = 50000;
 
     public static void main(String[] args) {
@@ -111,7 +111,7 @@ public class Main {
             }
 
 //            Debug output
-            if (maxScore < population[0].getValue() && outputNum++ % 10 == 0)
+            if (maxScore + 1000 < population[0].getValue() && outputNum++ % 20 == 0)
 
                 for (int j = 0; j == 0 && j < population.length; ++j)
                     try {

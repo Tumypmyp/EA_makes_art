@@ -66,20 +66,13 @@ After some optimizations works much faster, there are the results:
 <p float="left">
   <img src="/AI_images/image01.gif" width="200" />
   <img src="/AI_images/clown.gif" width="200" />
+  <img src="/AI_images/image02.gif" width="200" />
 </p>
-
 <p float="left">
   <img src="/AI_images/image01.png" width="200" />
   <img src="/AI_images/clown.png" width="200" /> 
+  <img src="/AI_images/image02.png" width="200" /> 
 </p>
-
-<!-- 
-<p float="left">
-  <img src="/AI_images/image01.gif" width="200" />
-  <img src="/AI_images/image01.png" width="200" />
-  <img src="/AI_images/clown.gif" width="200" />
-  <img src="/AI_images/clown.png" width="200" /> 
-</p> -->
 
 
 In order to choose the best constants for EA which are:  
