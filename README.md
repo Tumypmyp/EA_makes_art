@@ -1,6 +1,5 @@
-# Report for Introduction to Artificial Intelligence Assignment 2
+# Report for EA_makes_art project
 ##### Prepared by Gainullin Timur
-##### [github link](https://github.com/Tumypmyp/IAI_assignment2)
 
 To use download or clone this repository and execute:
 ```
